@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "zip -r lambda_function.zip src/CountVisitor.py",
+    "build": "zip -r lambda_function.zip dist/CountVisitor.py",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
