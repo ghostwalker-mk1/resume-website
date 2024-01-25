@@ -44,6 +44,11 @@ jobs:
     needs: build
 
     steps:
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.12
+
     - name: Checkout repository
       uses: actions/checkout@v2
 
