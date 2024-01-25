@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-22.04.3
 
     steps:
     - name: Checkout repository
@@ -20,7 +20,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
-        python-version: '3.12'
+        python-version: 3.12
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -40,7 +40,7 @@ jobs:
       run: echo "AWS_REGION=us-east-1\nLAMBDA_FUNCTION_NAME=CountVisitor" > config.env
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04.3
     needs: build
 
     steps:
