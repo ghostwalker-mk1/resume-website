@@ -17,6 +17,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
+    - name: Install dependencies
+      run: |
+        npm ci
+
     - name: Build Lambda function artifact
       run: |
         npm run build
@@ -54,6 +63,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
     - name: Install Cypress and dependencies
       run: |
         npm install
@@ -62,4 +76,3 @@ jobs:
     - name: Run Cypress API tests
       run: |
         npx cypress run --spec cypress/e2e_testing.cy.js
-
