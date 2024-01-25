@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Simple SAM Template
+Resources:
+  MyDynamoDBTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: VisitorCount
+  MyLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: CountVisitor
+      Handler: app.handler
+      Runtime: python3.12
+      CodeUri: MyLambdaFunction
+      Events:
+        MyApi:
+          Type: Api
+          Properties:
+            Path: /CountVisitor
+            Method: post
+    Metadata:
+      SamResourceId: MyLambdaFunction
