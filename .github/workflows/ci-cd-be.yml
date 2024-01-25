@@ -80,4 +80,4 @@ jobs:
 
     - name: Run Cypress API tests
       run: |
-        npx cypress run --spec cypress/e2e_testing.cy.js
+        npx cypress run --spec cypress/e2e/e2e_testing.cy.js
