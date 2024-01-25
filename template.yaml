@@ -6,7 +6,7 @@ Resources:
   MyDynamoDBTable:
     Type: 'AWS::Serverless::SimpleTable'
     Properties:
-      TableName: 'VisitorCount'
+      TableName: 'VisitorCount-prod'
       PrimaryKey:
         Name: 'visitor_id'
         Type: String
@@ -14,7 +14,7 @@ Resources:
   MyLambdaFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
-      FunctionName: 'CountVisitor'
+      FunctionName: 'CountVisitor-prod'
       Handler: 'app.handler'
       Runtime: 'python3.12'
       CodeUri: './dist'
