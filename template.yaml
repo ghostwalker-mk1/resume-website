@@ -13,7 +13,7 @@ Resources:
     Properties:
       FunctionName: 'CountVisitor'
       Handler: 'app.handler'
-      Runtime: 'python3.11'
+      Runtime: 'python3.12'
       CodeUri: './src'
       Events:
         MyApi:
