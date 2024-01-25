@@ -58,7 +58,7 @@ jobs:
     - name: Deploy resources using IaC tool (e.g., AWS SAM)
       run: |
         sam build
-        sam deploy --template-file packaged.yaml --stack-name resume-app --capabilities CAPABILITY_IAM
+        sam deploy --template-file template.yaml --stack-name resume-app --capabilities CAPABILITY_IAM
 
   smoke-test:
     runs-on: ubuntu-latest
