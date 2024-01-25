@@ -58,7 +58,7 @@ jobs:
     - name: Deploy resources using IaC tool (e.g., AWS SAM)
       run: |
         sam build
-        sam deploy --template-file template.yaml --stack-name resume-app --capabilities CAPABILITY_IAM --no-confirm-changeset --no-disable-rollback
+        sam deploy --template-file template.yaml --stack-name resume-app --capabilities CAPABILITY_IAM --no-confirm-changeset --no-disable-rollback --no-fail-on-empty-changeset
 
   smoke-test:
     runs-on: macos-latest
