@@ -1,0 +1,79 @@
+name: Deploy Lambda Function and Run Smoke Tests
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
+    - name: Install dependencies
+      run: |
+        npm ci
+
+    - name: Build Lambda function artifact
+      run: |
+        npm run build
+        zip -r lambda_function.zip dist/
+
+    - name: Prepare config file
+      run: echo "AWS_REGION=us-east-1\nLAMBDA_FUNCTION_NAME=CountVisitor" > config.env
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        role-duration-seconds: 1200
+        role-session-name: GitHubActions
+        aws-region: us-east-1
+
+    - name: Deploy resources using IaC tool (e.g., AWS SAM)
+      run: |
+        sam build
+        sam deploy --template-file packaged.yaml --stack-name resume-app --capabilities CAPABILITY_IAM
+
+  smoke-test:
+    runs-on: ubuntu-latest
+    needs: deploy
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
+    - name: Install Cypress and dependencies
+      run: |
+        npm install
+        npm install cypress
+
+    - name: Run Cypress API tests
+      run: |
+        npx cypress run --spec cypress/e2e_testing.cy.js
+
