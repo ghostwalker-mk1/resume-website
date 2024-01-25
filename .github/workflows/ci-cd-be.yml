@@ -29,7 +29,7 @@ jobs:
     - name: Build Lambda function artifact
       run: |
         npm run build
-        zip -r lambda_function.zip dist/
+        zip -r lambda_function.zip dist/CountVisitor.py
 
     - name: Prepare config file
       run: echo "AWS_REGION=us-east-1\nLAMBDA_FUNCTION_NAME=CountVisitor" > config.env
