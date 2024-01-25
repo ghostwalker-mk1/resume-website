@@ -14,7 +14,7 @@ Resources:
       FunctionName: 'CountVisitor'
       Handler: 'app.handler'
       Runtime: 'python3.12'
-      CodeUri: './src'
+      CodeUri: './dist'
       Events:
         MyApi:
           Type: Api
